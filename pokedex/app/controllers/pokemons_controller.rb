@@ -1,5 +1,5 @@
 class PokemonsController < ApplicationController
- before_action :set_pokemon, only: [:show, :edit, :update, :destroy]
+ load_and_authorize_resource
  before_action :check_minimum, only: [:index]
  before_action :authenticate_user!, only: [:new, :create, :update, :destroy]
 
@@ -10,7 +10,6 @@ class PokemonsController < ApplicationController
  def show
  end
  def new
- 	@pokemon = Pokemon.new
  end
  def create
  	@pokemon = Pokemon.new pokemon_params

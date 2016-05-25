@@ -1,0 +1,34 @@
+
+
+<% if @types.any? %>
+<h1>Liste des  Types</h1>
+
+<table class="table table-striped table-condensed">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Couleur</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @types.each do |type| %>
+      <tr>
+        <td><%= type.name %></td>
+        <td><%= type_badge(type.color, type.color) %></td>
+        <td><%= link_to 'Show', type, class: 'btn btn-info' %></td>
+        <td><%= link_to 'Edit', edit_type_path(type), class: 'btn btn-warning' %></td>
+        <td><%= link_to 'Destroy', type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Type', new_type_path, class: 'btn btn-default' %>
+
+<% else %>
+  <p>Vous n'avez aucun type !</p>
+<% end %>

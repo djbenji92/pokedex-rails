@@ -1,0 +1,20 @@
+<h1>Afficher un Pokemon</h1>
+<p>N°: <%= @pokemon.number %></p>
+<p>Nom : <%= @pokemon.name %></p>
+<p>Niveau : <%= @pokemon.level %></p>
+<p>PV : <%= @pokemon.health_points %></p>
+<% if @pokemon.avatar.exists? %>
+	<div style="text-align: center">
+		<%= image_tag @pokemon.avatar.url(:medium) %>
+	<div>
+<% end %>
+
+Type :
+<% type = @pokemon.type %>
+<%= render partial: 'types/type', locals: { type: @pokemon.type} %>
+
+<%= render partial: 'moves/moves_list', locals: { moves: @pokemon.moves} %>
+
+<p>
+	<%= link_to "Editer", edit_pokemon_path(@pokemon) %>
+</p>

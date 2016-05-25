@@ -1,0 +1,14 @@
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @type.name %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= type_link(@type) %>
+</p>
+
+<%= link_to 'Edit', edit_type_path(@type), class: 'btn btn-default' %> |
+<%= link_to 'Retour à la liste des types', types_path, class: 'btn btn-default' %>

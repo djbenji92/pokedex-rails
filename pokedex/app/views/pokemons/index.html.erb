@@ -1,0 +1,48 @@
+<h1>Liste des Pokémons</h1>
+
+<% if user_signed_in? %>
+	<%= link_to 'Se déconnecter', new_pokemon_path, class: 'btn btn-info' %>
+<% end %>
+
+<% if @pokemons.any? %>
+<table class="table table-striped table-condensed">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Nom</th>
+			<th>Type</th>
+			<th>Attaque</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @pokemons.each do |pokemon| %>
+			<tr>
+				<td>
+					<%= pokemon.avatar.exists? ? image_tag(pokemon.avatar.url(:thumb)) : '&empty;'.html_safe %>
+				</td>
+				<td><%= pokemon.id %></td>
+				<td><%= pokemon.name %></td>
+				<td>
+					<%= render partial: 'types/type', locals: { type: pokemon.type} %>
+				</td>
+				<td><%= render partial: 'moves/moves_list', locals: { moves: pokemon.moves} %></td>
+				<td><%= link_to 'Afficher', pokemon, class: 'btn btn-info' %></td>
+				<td><%= link_to 'Editer', edit_pokemon_path(pokemon), class: 'btn btn-warning' %></td>
+				<td>
+					<%= link_to 'Supprimer', pokemon,
+						method: :delete,
+						data: {
+							confirm: 'Etes vous sûr de vouloir supprimer ce pokemon ?'
+						},
+						class: 'btn btn-danger'
+					 %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<%= will_paginate @pokemons, renderer: BootstrapPagination::Rails %>
+<% else %>
+	<p>Vous n'avez capturé aucun Pokemon !</p>
+<% end %>

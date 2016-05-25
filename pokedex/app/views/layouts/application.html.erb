@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pokedex</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <% unless Rails.application.assets.find_asset("#{controller_name}.css").nil? -%>
+  	<!-- Load controller specific stylesheet if available -->
+  	<%= stylesheet_link_tag controller_name, media: 'all', 'data-turbolinks-track' => true %>
+  <% end -%>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <% unless Rails.application.assets.find_asset("#{controller_name}.js").nil? -%>
+  	<!-- Load controller specific stylesheet if available -->
+  	<%= stylesheet_link_tag controller_name, media: 'all', 'data-turbolinks-track' => true %>
+  <% end -%>
+  <%= csrf_meta_tags %>
+</head>
+<body class="<%= "#{controller_name}-#{action_name}" %>">
+<div class="container">
+<header>
+	<p><%= link_to 'Liste des Pokemons', pokemons_path, class: 'btn btn-default'  %><%= link_to 'Liste des Types', types_path, class: 'btn btn-default'  %><%= link_to 'Liste des Attaques', moves_path, class: 'btn btn-default'  %></p>
+	<p>
+		<% if user_signed_in? %>
+			Connecté en tant que <%= current_user.email %> -
+      <%= link_to current_user.username, edit_user_registration_path %>
+			<%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %>
+		<% else %>
+			<%= link_to 'Se connecter', new_user_session_path%>
+		<% end %>
+
+	</p>
+</header>
+
+<% flash.each do |name, msg| -%> <!-- -%> empêche le saut de ligne dans le code-->
+	<div class="alert alert-info alert-<%= name%>">
+		<a class="close" data-dismiss="alert">X</a>
+		<%= content_tag :div, msg, id: "flash_#{name}" %>
+	</div>
+<% end %>
+
+<%= yield %>
+</div>
+
+</body>
+</html>

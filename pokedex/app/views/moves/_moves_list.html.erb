@@ -1,0 +1,9 @@
+<% if moves.any? %>
+	<%= moves.map { |m| link_to(m.name, m) }		
+		.join(',')
+		.html_safe %>
+<% else %>
+	
+	&Oslash 
+	
+<% end %>
